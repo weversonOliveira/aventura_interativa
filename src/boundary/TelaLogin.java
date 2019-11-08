@@ -13,6 +13,10 @@ import javafx.scene.layout.GridPane;
 
 public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
+	public TelaLogin(Executor e) {
+		this.setExecutor(e);
+	}
+	
 	ControlTelaLogin controlTelaLogin = new ControlTelaLogin();
 	Button btnLogin = new Button("Login");
 	TextField txtNome = new TextField();
@@ -22,6 +26,7 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 	TextField txtCadNome = new TextField();
 	PasswordField txtCadSenha = new PasswordField();
 	PasswordField txtCadSenhaConf = new PasswordField();
+	private Executor executor;
 
 	@Override
 	public Scene gerarTela() {
@@ -82,6 +87,8 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 			String nome = txtNome.getText();
 			Jogador jogador = controlTelaLogin.login(nome);
 			entityForBoundary(jogador);
+			
+			executor.executar("save");
 
 		} else if (event.getTarget() == btnCadastro) {
 
@@ -94,20 +101,21 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 	public Jogador boundaryForEntity() {
 
 		Jogador jogador = new Jogador();
-
+		Alert alertSenhas = new Alert(Alert.AlertType.WARNING);
+		alertSenhas.show();
+		
 		System.out.println(txtCadSenha.getText());
 		System.out.println(txtCadSenhaConf.getText());
 
-		if (txtCadSenha.getText().equals(txtCadSenhaConf.getText())) {
+		if (ControlTelaLogin.verificaIgualdade(txtCadSenha.getText(), txtCadSenhaConf.getText())) {
 
 			System.out.println("chegou aqui");
 			jogador.setNome(txtCadNome.getText());
 			jogador.setSenha(txtCadSenha.getText());
-			System.out.println(jogador);
-			Alert alertSenhas = new Alert(Alert.AlertType.INFORMATION);
+			alertSenhas.setAlertType(Alert.AlertType.INFORMATION);
 			alertSenhas.setHeaderText("Boa Sorte");
 			alertSenhas.setContentText("Cadastro Efetuado com Sucesso");
-			alertSenhas.show();
+//			alertSenhas.show();
 			txtCadNome.clear();
 			txtCadSenha.clear();
 			txtCadSenhaConf.clear();
@@ -115,10 +123,10 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		} else {
 
 			System.out.println("entrou no else");
-			Alert alertSenhas = new Alert(Alert.AlertType.WARNING);
+			alertSenhas.setAlertType(Alert.AlertType.WARNING); 
 			alertSenhas.setHeaderText("As Senhas digitadas não correspondem");
 			alertSenhas.setContentText("Por favor digite senhas iguais!!!");
-			alertSenhas.showAndWait();
+//			alertSenhas.showAndWait();
 			txtCadSenha.clear();
 			txtCadSenhaConf.clear();
 		}
@@ -135,5 +143,15 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 			alertSenhas.setContentText("Login Efetuado com Sucesso");
 			alertSenhas.showAndWait();
 		}
+	}
+	
+	@Override
+	public void setExecutor(Executor e) {
+		this.executor = e;
+	}
+
+	@Override
+	public boundary.Executor getExecutor() {
+		return this.executor;
 	}
 }

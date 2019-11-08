@@ -12,6 +12,10 @@ import javafx.scene.layout.GridPane;
 
 public class TelaGame implements Telas {
 
+	public TelaGame(Executor e) {
+		this.setExecutor(e);
+	}
+	
 	Group group = new Group();
 	Image image = new Image(getClass().getResourceAsStream("/img.png"));
 	Canvas canvas = new Canvas(image.getWidth(), image.getHeight());
@@ -25,6 +29,7 @@ public class TelaGame implements Telas {
 	private TextField txtSorte = new TextField();
 	private TextArea txtHistoria = new TextArea();
 	TableView<String> tableView = new TableView<>();
+	private Executor executor;
 
 	@Override
 	public Scene gerarTela() {
@@ -54,5 +59,14 @@ public class TelaGame implements Telas {
 		Scene telaGame = new Scene(paneB, 1000, 800);
 		return telaGame;
 
+	}
+	@Override
+	public void setExecutor(Executor e) {
+		this.executor = e;
+	}
+
+	@Override
+	public boundary.Executor getExecutor() {
+		return this.executor;
 	}
 }
