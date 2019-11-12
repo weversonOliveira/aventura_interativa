@@ -1,10 +1,11 @@
 package boundary;
 
-
 import javafx.scene.Scene;
 
-public interface Telas{
+public interface Telas {
+	Scene gerarTela();
 
-    Scene gerarTela();
+	void setExecutor(Executor e);
 
+	Executor getExecutor();
 }
