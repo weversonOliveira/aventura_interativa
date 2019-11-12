@@ -19,8 +19,6 @@ public class TelaPrincipal extends Application {
         stage.show();
     }
 
-    public void tro
-
     public static void main(String[] args){
 
         launch(args);

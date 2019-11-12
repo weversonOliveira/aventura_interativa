@@ -117,10 +117,14 @@ public class TelaLogin implements Telas, EventHandler <ActionEvent> {
         } else {
 
             System.out.println ("entrou no else");
+
+
             Alert alertSenhas=new Alert (Alert.AlertType.WARNING);
             alertSenhas.setHeaderText ("As Senhas digitadas não correspondem");
             alertSenhas.setContentText ("Por favor digite senhas iguais!!!");
             alertSenhas.showAndWait ();
+
+            alertSenhas.setAlertType;
             txtCadSenha.clear ();
             txtCadSenhaConf.clear ();
         }

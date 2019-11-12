@@ -18,8 +18,6 @@ import javafx.stage.Stage;
 
 public class TelaGame implements Telas {
 
-    Group group = new Group ();
-    private GraphicsContext ctx;
     private BorderPane paneB = new BorderPane ();
     private GridPane paneG = new GridPane ();
 
@@ -31,6 +29,8 @@ public class TelaGame implements Telas {
     TableView <String> tableView = new TableView<> ();
     //Image image = new Image ("img/img.png");
     Image image = new Image(getClass().getResourceAsStream("img.png"));
+
+    private GraphicsContext ctx = canvas.getGraphicsContext2D ();
 
     @Override
     public Scene gerarTela() {
