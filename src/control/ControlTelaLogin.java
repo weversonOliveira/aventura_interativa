@@ -1,49 +1,35 @@
 package control;
 
 import entity.Jogador;
-import javafx.scene.control.Alert;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ControlTelaLogin {
 
 	private List<Jogador> listaJogador = new ArrayList<>();
+	
 
-	public Jogador login(String nome) {
-
-		for (Jogador jogador : listaJogador) {
-			if (jogador.getNome().contains(nome)) {
-				return jogador;
-
-				// System.out.println (jogador.getNome ());
-				// System.out.println (jogador.getSenha ());
+	public boolean login(Jogador jogador) {
+		
+		System.out.println(jogador.getNome() + " chegou até o login");
+		boolean existe = false;
+		for (Jogador j : listaJogador) {
+			if ((jogador.getNome().equals(j.getNome())) && (jogador.getSenha().equals(j.getSenha()))) {
+				System.out.println("Existe " + " Lista: " + j.getNome() + " Tela: " + jogador.getNome());
+				existe = true;
+			} else {
+				System.out.println("Nao existe " + " Lista: " + j.getNome() + " Tela: " + jogador.getNome());
 			}
+			System.out.println("");
 		}
-		return null;
+		return existe;
 	}
 
 	public void cadastrar(Jogador jogador) {
-		
-		for (Iterator<Jogador> iter = listaJogador.iterator(); iter.hasNext();) {
-			Jogador jogadorAtual = iter.next();
-			
-			
-			System.out.println(jogadorAtual.getNome());
-		
-			if (jogador.getNome().toString().equals(j.getNome().toString())) {
-			System.out.println("Existe");
-			} else {
-				listaJogador.add(jogador);
-			}
-		}
-		System.out.println("Jogador Cadastrado");
 
-		for (Iterator<Jogador> iter = listaJogador.iterator(); iter.hasNext();) {
-			Jogador jogadorAtual = iter.next();
-			System.out.println(jogadorAtual.getNome());
-		}
+		listaJogador.add(jogador);
+		System.out.println("nome: " + jogador.getNome());
+		System.out.println("senha: " + jogador.getSenha());
 
 	}
 

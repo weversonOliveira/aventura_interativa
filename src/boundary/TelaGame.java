@@ -12,104 +12,61 @@ import javafx.scene.layout.GridPane;
 
 public class TelaGame implements Telas {
 
-    private BorderPane paneB = new BorderPane ();
-    private GridPane paneG = new GridPane ();
+    public TelaGame(Executor e) {
+        this.setExecutor(e);
+    }
 
-    private TextField txtEnergia = new TextField ();
-    private TextField txtHabilidade = new TextField ();
-    private TextField txtSorte = new TextField ();
-    private TextArea txtHistoria = new TextArea ();
-    Canvas canvas = new Canvas (600, 600);
-    TableView <String> tableView = new TableView<> ();
-    //Image image = new Image ("img/img.png");
-    Image image = new Image(getClass().getResourceAsStream("img.png"));
+    Group group = new Group();
+    Image image = new Image(getClass().getResourceAsStream("/img.png"));
+    Canvas canvas = new Canvas(image.getWidth(), image.getHeight());
+    private GraphicsContext ctx = canvas.getGraphicsContext2D();
 
-    private GraphicsContext ctx = canvas.getGraphicsContext2D ();
+    private BorderPane paneB = new BorderPane();
+    private GridPane paneG = new GridPane();
+
+    private TextField txtEnergia = new TextField();
+    private TextField txtHabilidade = new TextField();
+    private TextField txtSorte = new TextField();
+    private TextArea txtHistoria = new TextArea();
+    TableView<String> tableView = new TableView<>();
+    private Executor executor;
 
     @Override
     public Scene gerarTela() {
 
-        paneG.add (new Label ("Energia"), 0,0);
-        paneG.add (txtEnergia,1,0);
-        paneG.add (new Label ("Habilidade"), 0,1);
-        paneG.add (txtHabilidade,1,1);
-        paneG.add (new Label ("Sorte"), 0,2);
-        paneG.add (txtSorte,1,2);
-        txtEnergia.setEditable (false);
+        paneG.add(new Label("Energia"), 0, 0);
+        paneG.add(txtEnergia, 1, 0);
+        paneG.add(new Label("Habilidade"), 0, 1);
+        paneG.add(txtHabilidade, 1, 1);
+        paneG.add(new Label("Sorte"), 0, 2);
+        paneG.add(txtSorte, 1, 2);
+        txtEnergia.setEditable(false);
+        txtHabilidade.setEditable(false);
+        txtSorte.setEditable(false);
+        txtHistoria.setEditable(false);
 
-        new AnimationTimer () {
+        new AnimationTimer() {
             @Override
             public void handle(long now) {
-              ctx.drawImage(image,  0, 0);
+                ctx.drawImage(image, 0, 0);
             }
         }.start();
 
-        paneB.setCenter (canvas);
-        paneB.setLeft (paneG);
-        paneB.setRight (txtHistoria);
-        paneB.setBottom (tableView);
-        Scene telaGame = new Scene (paneB,1000,800);
+        paneB.setCenter(canvas);
+        paneB.setLeft(paneG);
+        paneB.setRight(txtHistoria);
+        paneB.setBottom(tableView);
+        Scene telaGame = new Scene(paneB, 1000, 800);
         return telaGame;
 
-
+    }
+    @Override
+    public void setExecutor(Executor e) {
+        this.executor = e;
     }
 
-	public TelaGame(Executor e) {
-		this.setExecutor(e);
-	}
-	
-	Group group = new Group();
-	Image image = new Image(getClass().getResourceAsStream("/img.png"));
-	Canvas canvas = new Canvas(image.getWidth(), image.getHeight());
-	private GraphicsContext ctx = canvas.getGraphicsContext2D();
-
-	private BorderPane paneB = new BorderPane();
-	private GridPane paneG = new GridPane();
-
-	private TextField txtEnergia = new TextField();
-	private TextField txtHabilidade = new TextField();
-	private TextField txtSorte = new TextField();
-	private TextArea txtHistoria = new TextArea();
-	TableView<String> tableView = new TableView<>();
-	private Executor executor;
-
-	@Override
-	public Scene gerarTela() {
-
-		paneG.add(new Label("Energia"), 0, 0);
-		paneG.add(txtEnergia, 1, 0);
-		paneG.add(new Label("Habilidade"), 0, 1);
-		paneG.add(txtHabilidade, 1, 1);
-		paneG.add(new Label("Sorte"), 0, 2);
-		paneG.add(txtSorte, 1, 2);
-		txtEnergia.setEditable(false);
-		txtHabilidade.setEditable(false);
-		txtSorte.setEditable(false);
-		txtHistoria.setEditable(false);
-
-		new AnimationTimer() {
-			@Override
-			public void handle(long now) {
-				ctx.drawImage(image, 0, 0);
-			}
-		}.start();
-
-		paneB.setCenter(canvas);
-		paneB.setLeft(paneG);
-		paneB.setRight(txtHistoria);
-		paneB.setBottom(tableView);
-		Scene telaGame = new Scene(paneB, 1000, 800);
-		return telaGame;
-
-	}
-	@Override
-	public void setExecutor(Executor e) {
-		this.executor = e;
-	}
-
-	@Override
-	public boundary.Executor getExecutor() {
-		return this.executor;
-	}
+    @Override
+    public boundary.Executor getExecutor() {
+        return this.executor;
+    }
 }
-

@@ -1,5 +1,6 @@
 package boundary;
 
+import entity.Jogador;
 import javafx.scene.Scene;
 
 public interface Telas {

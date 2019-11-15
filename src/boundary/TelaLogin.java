@@ -11,145 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-<<<<<<< HEAD
-public class TelaLogin implements Telas, EventHandler <ActionEvent> {
-
-    ControlTelaLogin controlTelaLogin=new ControlTelaLogin ();
-    Button btnLogin=new Button ("Login");
-    TextField txtNome=new TextField ();
-    PasswordField txtSenha=new PasswordField ();
-
-    Button btnCadastro=new Button ("Cadastrar");
-    TextField txtCadNome=new TextField ();
-    PasswordField txtCadSenha=new PasswordField ();
-    PasswordField txtCadSenhaConf=new PasswordField ();
-
-    @Override
-    public Scene gerarTela() {
-
-        BorderPane paneB0 = new BorderPane ();
-        GridPane paneGEsq = new GridPane ();
-        GridPane paneGDir = new GridPane ();
-
-        btnLogin.addEventHandler (ActionEvent.ANY, this);
-        btnCadastro.addEventHandler (ActionEvent.ANY, this);
-
-        Label lblnome=new Label ("Nome");
-        Label lblsenha=new Label ("Senha");
-
-
-        //Cadastro novo
-        Label lblCadNome=new Label ("Novo Nome");
-        Label lblCadSenha=new Label ("Senha");
-        Label lblCadSenhaConf=new Label ("Confirme sua Senha");
-
-        paneGDir.setVgap (15);
-        paneGEsq.setVgap (15);
-
-        paneGDir.setHgap (10);
-        paneGEsq.setHgap (10);
-
-        paneGEsq.add (lblnome, 1, 0);
-        paneGEsq.add (txtNome, 2, 0);
-        paneGEsq.add (lblsenha, 1, 1);
-        paneGEsq.add (txtSenha, 2, 1);
-        paneGEsq.add (btnLogin, 2, 2);
-
-        paneGDir.add (lblCadNome, 1, 0);
-        paneGDir.add (txtCadNome, 2, 0);
-        paneGDir.add (lblCadSenha, 1, 1);
-        paneGDir.add (txtCadSenha, 2, 1);
-        paneGDir.add (lblCadSenhaConf, 1, 2);
-        paneGDir.add (txtCadSenhaConf, 2, 2);
-        paneGDir.add (btnCadastro, 2, 3);
-
-        Label lblLogo=new Label ("Aventura Interativa");
-        lblLogo.setStyle ("-fx-font-family: sample; -fx-font-size: 50;");
-        paneB0.setAlignment (lblLogo, Pos.CENTER);
-        paneB0.setTop (lblLogo);
-        paneB0.setLeft (paneGEsq);
-        paneB0.setCenter (paneGDir);
-        paneB0.setMargin (paneGDir, new Insets (0, 0, 0, 15));
-
-        Scene telaLogin = new Scene (paneB0,1000,800);
-
-        return telaLogin;
-
-    }
-
-    @Override
-    public void handle(ActionEvent event) {
-        if (event.getTarget () == btnLogin) {
-
-            String nome = txtNome.getText();
-            Jogador jogador = controlTelaLogin.login (nome);
-            entityForBoundary (jogador);
-
-        } else if (event.getTarget () == btnCadastro) {
-
-            controlTelaLogin.cadastrar (boundaryForEntity ());
-
-            System.out.println (event);
-        }
-    }
-
-    public Jogador boundaryForEntity() {
-
-        Jogador jogador=new Jogador ();
-
-        System.out.println (txtCadSenha.getText ());
-        System.out.println (txtCadSenhaConf.getText ());
-
-        if (txtCadSenha.getText ().equals (txtCadSenhaConf.getText ())) {
-
-            System.out.println ("chegou aqui");
-            jogador.setNome (txtCadNome.getText ());
-            jogador.setSenha (txtCadSenha.getText ());
-            System.out.println (jogador);
-            Alert alertSenhas=new Alert (Alert.AlertType.INFORMATION);
-            alertSenhas.setHeaderText ("Boa Sorte");
-            alertSenhas.setContentText ("Cadastro Efetuado com Sucesso");
-            alertSenhas.show();
-            txtCadNome.clear ();
-            txtCadSenha.clear ();
-            txtCadSenhaConf.clear ();
-
-
-        } else {
-
-            System.out.println ("entrou no else");
-
-
-            Alert alertSenhas=new Alert (Alert.AlertType.WARNING);
-            alertSenhas.setHeaderText ("As Senhas digitadas n√£o correspondem");
-            alertSenhas.setContentText ("Por favor digite senhas iguais!!!");
-            alertSenhas.showAndWait ();
-
-            alertSenhas.setAlertType;
-            txtCadSenha.clear ();
-            txtCadSenhaConf.clear ();
-        }
-
-        return jogador;
-    }
-
-    public void entityForBoundary(Jogador jogador) {
-
-        if (jogador != null) {
-            txtNome.setText (jogador.getNome ());
-            txtSenha.setText (jogador.getSenha ());
-            Alert alertSenhas=new Alert (Alert.AlertType.INFORMATION);
-            alertSenhas.setContentText ("Login Efetuado com Sucesso");
-            alertSenhas.showAndWait ();
-        }
-    }
-=======
 public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
 	public TelaLogin(Executor e) {
 		this.setExecutor(e);
 	}
-	
+
 	ControlTelaLogin controlTelaLogin = new ControlTelaLogin();
 	Button btnLogin = new Button("Login");
 	TextField txtNome = new TextField();
@@ -207,7 +74,7 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		paneB0.setCenter(paneGDir);
 		paneB0.setMargin(paneGDir, new Insets(0, 0, 0, 15));
 
-		Scene telaLogin = new Scene(paneB0, 1000, 800);
+		Scene telaLogin = new Scene(paneB0, 600, 400);
 
 		return telaLogin;
 
@@ -215,69 +82,84 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
+
+		Alert alertSenhas = new Alert(Alert.AlertType.WARNING);
+
 		if (event.getTarget() == btnLogin) {
 
-			String nome = txtNome.getText();
-			Jogador jogador = controlTelaLogin.login(nome);
-			entityForBoundary(jogador);
+			boolean existe = false;
 			
-			executor.executar("save");
+			if(controlTelaLogin.login(boundaryForEntityLogin())) {
+				executor.executar("save");
+			}
 
 		} else if (event.getTarget() == btnCadastro) {
 
-			controlTelaLogin.cadastrar(boundaryForEntity());
+			if (ControlTelaLogin.verificaIgualdade(txtCadSenha.getText(), txtCadSenhaConf.getText())) {
 
-			System.out.println(event);
+				controlTelaLogin.cadastrar(boundaryForEntityCad());
+
+				System.out.println("cadastrou");
+
+				alertSenhas.setAlertType(Alert.AlertType.INFORMATION);
+				alertSenhas.setHeaderText("Boa Sorte");
+				alertSenhas.setContentText("Cadastro Efetuado com Sucesso");
+				alertSenhas.show();
+				txtCadNome.clear();
+				txtCadSenha.clear();
+				txtCadSenhaConf.clear();
+
+			} else {
+
+				System.out.println("n?o cadastrou");
+				alertSenhas.setAlertType(Alert.AlertType.WARNING);
+				alertSenhas.setHeaderText("As Senhas digitadas n„o correspondem");
+				alertSenhas.setContentText("Por favor digite senhas iguais!!!");
+				alertSenhas.showAndWait();
+				txtCadSenha.clear();
+				txtCadSenhaConf.clear();
+			}
 		}
 	}
 
-	public Jogador boundaryForEntity() {
+	public Jogador boundaryForEntityCad() {
 
 		Jogador jogador = new Jogador();
-		Alert alertSenhas = new Alert(Alert.AlertType.WARNING);
-		alertSenhas.show();
-		
-		System.out.println(txtCadSenha.getText());
-		System.out.println(txtCadSenhaConf.getText());
 
-		if (ControlTelaLogin.verificaIgualdade(txtCadSenha.getText(), txtCadSenhaConf.getText())) {
+		jogador.setNome(txtCadNome.getText());
+		jogador.setSenha(txtCadSenha.getText());
+		System.out.println("boundaryForEntityCad nome - " + jogador.getNome());
 
-			System.out.println("chegou aqui");
-			jogador.setNome(txtCadNome.getText());
-			jogador.setSenha(txtCadSenha.getText());
-			alertSenhas.setAlertType(Alert.AlertType.INFORMATION);
-			alertSenhas.setHeaderText("Boa Sorte");
-			alertSenhas.setContentText("Cadastro Efetuado com Sucesso");
-//			alertSenhas.show();
-			txtCadNome.clear();
-			txtCadSenha.clear();
-			txtCadSenhaConf.clear();
+		return jogador;
+	}
 
-		} else {
+	public Jogador boundaryForEntityLogin() {
 
-			System.out.println("entrou no else");
-			alertSenhas.setAlertType(Alert.AlertType.WARNING); 
-			alertSenhas.setHeaderText("As Senhas digitadas n„o correspondem");
-			alertSenhas.setContentText("Por favor digite senhas iguais!!!");
-//			alertSenhas.showAndWait();
-			txtCadSenha.clear();
-			txtCadSenhaConf.clear();
-		}
+		Jogador jogador = new Jogador();
+
+		jogador.setNome(txtNome.getText());
+		jogador.setSenha(txtSenha.getText());
+		System.out.println("boundaryForEntityLogin nome - " + jogador.getNome());
 
 		return jogador;
 	}
 
 	public void entityForBoundary(Jogador jogador) {
 
+		Alert alertSenhas = new Alert(Alert.AlertType.INFORMATION);
+
 		if (jogador != null) {
 			txtNome.setText(jogador.getNome());
 			txtSenha.setText(jogador.getSenha());
-			Alert alertSenhas = new Alert(Alert.AlertType.INFORMATION);
 			alertSenhas.setContentText("Login Efetuado com Sucesso");
 			alertSenhas.showAndWait();
+		} else {
+			alertSenhas.setContentText("Insira Nome e Senha");
+			alertSenhas.showAndWait();
+
 		}
 	}
-	
+
 	@Override
 	public void setExecutor(Executor e) {
 		this.executor = e;
@@ -287,5 +169,5 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 	public boundary.Executor getExecutor() {
 		return this.executor;
 	}
->>>>>>> 7d614cc7a68fd242c92eb0b502cd741644dd7d45
+
 }
