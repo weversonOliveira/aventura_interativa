@@ -1,7 +1,7 @@
 package boundary;
 
+import control.ControlTelaGame;
 import javafx.animation.AnimationTimer;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,9 +16,10 @@ public class TelaGame implements Telas {
         this.setExecutor(e);
     }
 
-    Group group = new Group();
-    Image image = new Image(getClass().getResourceAsStream("/img.png"));
-    Canvas canvas = new Canvas(image.getWidth(), image.getHeight());
+    private ControlTelaGame controlTelaGame = new ControlTelaGame ();
+
+    private Image image = new Image(getClass().getResourceAsStream("/img.png"));
+    private Canvas canvas = new Canvas(image.getWidth(), image.getHeight());
     private GraphicsContext ctx = canvas.getGraphicsContext2D();
 
     private BorderPane paneB = new BorderPane();
@@ -28,7 +29,7 @@ public class TelaGame implements Telas {
     private TextField txtHabilidade = new TextField();
     private TextField txtSorte = new TextField();
     private TextArea txtHistoria = new TextArea();
-    TableView<String> tableView = new TableView<>();
+    private TableView<String> tableView = new TableView<>();
     private Executor executor;
 
     @Override
@@ -44,6 +45,11 @@ public class TelaGame implements Telas {
         txtHabilidade.setEditable(false);
         txtSorte.setEditable(false);
         txtHistoria.setEditable(false);
+
+        txtEnergia.setText (Integer.toString (controlTelaGame.gerarEnergiaMax ()));
+        txtHabilidade.setText (Integer.toString (controlTelaGame.gerarHabilidadeMax ()));
+        txtSorte.setText (Integer.toString (controlTelaGame.gerarSorte ()));
+
 
         new AnimationTimer() {
             @Override

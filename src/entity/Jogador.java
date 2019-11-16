@@ -2,17 +2,10 @@ package entity;
 
 public class Jogador {
 
-<<<<<<< HEAD
-	int id;
-	String nome;
-	String email;
-	String senha;
-=======
 	private int id;
 	private String nome;
 	private String email;
 	private String senha;
->>>>>>> 8b2e9c99f87306d2691e224b94591afba428993f
 
 	public int getId() {
 		return id;

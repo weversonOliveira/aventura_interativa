@@ -11,7 +11,7 @@ public class ControlTelaLogin {
 
 	public boolean login(Jogador jogador) {
 		
-		System.out.println(jogador.getNome() + " chegou até o login");
+		System.out.println(jogador.getNome() + " chegou ate o login");
 		boolean existe = false;
 		for (Jogador j : listaJogador) {
 			if ((jogador.getNome().equals(j.getNome())) && (jogador.getSenha().equals(j.getSenha()))) {
@@ -28,8 +28,8 @@ public class ControlTelaLogin {
 	public void cadastrar(Jogador jogador) {
 
 		listaJogador.add(jogador);
-		System.out.println("nome: " + jogador.getNome());
-		System.out.println("senha: " + jogador.getSenha());
+		System.out.println("Nome: " + jogador.getNome());
+		System.out.println("Senha: " + jogador.getSenha());
 
 	}
 
