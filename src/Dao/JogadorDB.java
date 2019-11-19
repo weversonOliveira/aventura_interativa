@@ -34,9 +34,7 @@ public class JogadorDB implements JogadorDAO {
             while (consultaNomeSenha.next ()) {
 
                 jogador.setNome (consultaNomeSenha.getString ("nomeJogador"));
-                System.out.println ("NomeDB:"+ jogador.getNome ());
                 jogador.setSenha (consultaNomeSenha.getString ("senhaJogador"));
-                System.out.println ("SenhaDB:"+ jogador.getNome ());
             }
         } catch (SQLException e) {
             e.printStackTrace ();
@@ -62,30 +60,28 @@ public class JogadorDB implements JogadorDAO {
     }
 
     @Override
-    public String consultarNome(String nome) {
+    public int consultarNome(String nome) {
 
-        String nomeDoBanco = "";
+        int qtdExixtente = 0;
+
         try {
 
             Connection connection=DriverManager.getConnection (URL, USER, PASS);
-            String sql="SELECT * FROM Jogador"
+            String sql="SELECT COUNT (nomeJogador)AS Consulta FROM Jogador"
                     + " WHERE nomeJogador LIKE ?";
 
-            PreparedStatement preparedStatement=connection.prepareStatement (sql);
+            PreparedStatement preparedStatement = connection.prepareStatement (sql);
             preparedStatement.setString (1, "%" + nome + "%");
 
             ResultSet consultaNome = preparedStatement.executeQuery ();
 
-            //omeDoBanco = consultaNome.getString ("nomeJogador");
+            if (consultaNome.next ()) {
 
-            nomeDoBanco = consultaNome.getString ("nomeJogador");
-            System.out.println ("NomeDBVerificação:"+ nomeDoBanco);
-
+                qtdExixtente = consultaNome.getInt ("Consulta");
+            }
         } catch (SQLException e) {
             e.printStackTrace ();
         }
-
-        return nomeDoBanco;
-
+        return qtdExixtente;
     }
 }

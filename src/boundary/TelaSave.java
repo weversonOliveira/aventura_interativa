@@ -52,7 +52,7 @@ public class TelaSave implements Telas, EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		executor.executar("game");		
+		executor.executar("login");
 	}
 	@Override
 	public void setExecutor(Executor e) {

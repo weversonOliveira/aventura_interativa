@@ -9,12 +9,12 @@ public class ControlLogin {
 
 	public boolean login(String nome, String senha) {
 
-		Jogador jogador;
-		jogador=jogadorDB.consultarJogador (nome, senha);
+		Jogador jogador1;
+		jogador1 = jogadorDB.consultarJogador (nome, senha);
 
 		boolean existe = false;
 
-		if (nome.equals (jogador.getNome ()) && (senha.equals (jogador.getSenha ()))) {
+		if ((nome.equals (jogador1.getNome ())) && (senha.equals (jogador1.getSenha ()))) {
 			existe = true;
 		}
 
@@ -30,11 +30,16 @@ public class ControlLogin {
 
 	}
 
-	public boolean verificaNome(String nome){
+	public boolean verificaNome(Jogador jogador){
+
+
+		int qtd = jogadorDB.consultarNome (jogador.getNome ());
 
 		boolean existe = true;
 
-		if (!jogadorDB.consultarNome (nome).equals (nome)){
+		System.out.println ("TesteNull:" + qtd);
+
+		if (qtd != 0){
 			existe = false;
 		}
 

@@ -80,6 +80,9 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		if (event.getTarget() == btnLogin) {
 
 			if(controLogin.login(txtNome.getText(),txtSenha.getText ())) {
+
+				txtNome.clear();
+				txtSenha.clear();
 				executor.executar ("save");
 			}else {
 				alert.setAlertType(Alert.AlertType.INFORMATION);
@@ -92,7 +95,7 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
 		} else if (event.getTarget() == btnCadastro) {
 
-			if (controLogin.verificaNome (txtCadSenha.getText())) {
+			if (controLogin.verificaNome (boundaryForEntityCad ())) {
 
 				if (controLogin.verificaIgualdade (txtCadSenha.getText (), txtCadSenhaConf.getText ())) {
 
@@ -132,6 +135,16 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		jogador.setNome(txtCadNome.getText());
 		jogador.setSenha(txtCadSenha.getText());
 		System.out.println("boundaryForEntityCad nome - " + jogador.getNome());
+
+		return jogador;
+	}
+
+	public Jogador boundaryForEntityLogin() {
+
+		Jogador jogador = new Jogador();
+
+		jogador.setNome(txtNome.getText());
+		jogador.setSenha(txtSenha.getText());
 
 		return jogador;
 	}

@@ -6,6 +6,6 @@ public interface JogadorDAO {
 
     Jogador consultarJogador(String nome, String senha);
     void cadastrarJogador(Jogador jogador);
-    String consultarNome (String nome);
+    int consultarNome (String nome);
 }
 
