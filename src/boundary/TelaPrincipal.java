@@ -1,17 +1,18 @@
 package boundary;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class TelaPrincipal extends Application implements Executor {
-    TelaLogin telaLogin = new TelaLogin(this);
-    TelaSave telaSave = new TelaSave(this);
-    TelaGame telaGame = new TelaGame(this);
-    Stage stage;
+
+    private TelaLogin telaLogin = new TelaLogin(this);
+    private TelaSave telaSave = new TelaSave(this);
+    private TelaGame telaGame = new TelaGame(this);
+    private Stage stage;
 
     @Override
     public void executar(String cmd) {
+
         switch (cmd) {
             case "save":
                 stage.setScene(telaSave.gerarTela());
@@ -27,13 +28,13 @@ public class TelaPrincipal extends Application implements Executor {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         this.stage = stage;
         stage.setTitle("Aventura Interativa");
 
         executar("login");
         stage.show();
     }
-
 
     public static void main(String[] args) {
 

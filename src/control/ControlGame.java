@@ -2,7 +2,7 @@ package control;
 
 import java.util.Random;
 
-public class ControlTelaGame {
+public class ControlGame {
 
     public static void main(String[] args) {
 
@@ -24,7 +24,6 @@ public class ControlTelaGame {
         int sorte = jogarD6 () + 6;
         return sorte;
     }
-
 
     public int jogarD6(){
 
