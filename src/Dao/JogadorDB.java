@@ -1,8 +1,11 @@
 package Dao;
 
 import entity.Jogador;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class JogadorDB implements JogadorDAO {
 
@@ -10,16 +13,10 @@ public class JogadorDB implements JogadorDAO {
     private static final String USER="root";
     private static final String PASS="";
 
-
     @Override
     public Jogador consultarJogador(String nome, String senha) {
 
-//        try {
-//            Class.forName ("/home/weverson/AventuraInterativa/src/lib/mariadb-java-client-2.4.4.jar!/org/mariadb/jdbc/Driver.class");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace ();
-//        }
-        Jogador jogador1=new Jogador ();
+        Jogador jogador = new Jogador ();
 
         try {
 
@@ -32,19 +29,19 @@ public class JogadorDB implements JogadorDAO {
             preparedStatement.setString (1, "%" + nome + "%");
             preparedStatement.setString (2, "%" + senha + "%");
 
-            ResultSet resultSet=preparedStatement.executeQuery ();
+            ResultSet consultaNomeSenha = preparedStatement.executeQuery ();
 
-            while (resultSet.next ()) {
+            while (consultaNomeSenha.next ()) {
 
-                jogador1.setNome (resultSet.getString ("nomeJogador"));
-                System.out.println ("NomeDB:"+ jogador1.getNome ());
-                jogador1.setSenha (resultSet.getString ("senhaJogador"));
-                System.out.println ("SenhaDB:"+ jogador1.getNome ());
+                jogador.setNome (consultaNomeSenha.getString ("nomeJogador"));
+                System.out.println ("NomeDB:"+ jogador.getNome ());
+                jogador.setSenha (consultaNomeSenha.getString ("senhaJogador"));
+                System.out.println ("SenhaDB:"+ jogador.getNome ());
             }
         } catch (SQLException e) {
             e.printStackTrace ();
         }
-        return jogador1;
+        return jogador;
     }
 
     @Override
@@ -62,5 +59,33 @@ public class JogadorDB implements JogadorDAO {
         } catch (SQLException e) {
             e.printStackTrace ();
         }
+    }
+
+    @Override
+    public String consultarNome(String nome) {
+
+        String nomeDoBanco = "";
+        try {
+
+            Connection connection=DriverManager.getConnection (URL, USER, PASS);
+            String sql="SELECT * FROM Jogador"
+                    + " WHERE nomeJogador LIKE ?";
+
+            PreparedStatement preparedStatement=connection.prepareStatement (sql);
+            preparedStatement.setString (1, "%" + nome + "%");
+
+            ResultSet consultaNome = preparedStatement.executeQuery ();
+
+            //omeDoBanco = consultaNome.getString ("nomeJogador");
+
+            nomeDoBanco = consultaNome.getString ("nomeJogador");
+            System.out.println ("NomeDBVerificação:"+ nomeDoBanco);
+
+        } catch (SQLException e) {
+            e.printStackTrace ();
+        }
+
+        return nomeDoBanco;
+
     }
 }

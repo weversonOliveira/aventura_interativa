@@ -2,13 +2,10 @@ package control;
 
 import Dao.JogadorDB;
 import entity.Jogador;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControlLogin {
 
-	private List<Jogador> listaJogador=new ArrayList<> ();
-	private JogadorDB jogadorDB=new JogadorDB ();
+	private JogadorDB jogadorDB = new JogadorDB ();
 
 	public boolean login(String nome, String senha) {
 
@@ -24,15 +21,28 @@ public class ControlLogin {
 		return existe;
 	}
 
-
 	public void cadastrar (Jogador jogador){
 
 		jogadorDB.cadastrarJogador (jogador);
 		System.out.println ("Nome: " + jogador.getNome ());
 		System.out.println ("Senha: " + jogador.getSenha ());
+
+
 	}
 
-	public static boolean verificaIgualdade (String primeira, String segunda){
+	public boolean verificaNome(String nome){
+
+		boolean existe = true;
+
+		if (!jogadorDB.consultarNome (nome).equals (nome)){
+			existe = false;
+		}
+
+		return existe;
+	}
+
+
+	public boolean verificaIgualdade (String primeira, String segunda){
 		boolean resposta=false;
 		if (primeira.equals (segunda)) {
 			resposta=true;

@@ -17,15 +17,15 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		this.setExecutor(e);
 	}
 
-	ControlLogin controlTelaLogin = new ControlLogin ();
-	Button btnLogin = new Button("Login");
-	TextField txtNome = new TextField();
-	PasswordField txtSenha = new PasswordField();
+	private ControlLogin controLogin = new ControlLogin ();
+	private Button btnLogin = new Button("Login");
+	private TextField txtNome = new TextField();
+	private PasswordField txtSenha = new PasswordField();
 
-	Button btnCadastro = new Button("Cadastrar");
-	TextField txtCadNome = new TextField();
-	PasswordField txtCadSenha = new PasswordField();
-	PasswordField txtCadSenhaConf = new PasswordField();
+	private Button btnCadastro = new Button("Cadastrar");
+	private TextField txtCadNome = new TextField();
+	private PasswordField txtCadSenha = new PasswordField();
+	private PasswordField txtCadSenhaConf = new PasswordField();
 	private Executor executor;
 
 	@Override
@@ -44,7 +44,7 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		paneGDir.setHgap(10);
 		paneGEsq.setHgap(10);
 
-		paneGEsq.add (new Label("Nome"));
+		//paneGEsq.add (new Label("Nome"));
 
 		paneGEsq.add(new Label("Nome"), 1, 0);
 		paneGEsq.add(txtNome, 2, 0);
@@ -61,16 +61,14 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		paneGDir.add(btnCadastro, 2, 3);
 
 		Label lblLogo = new Label("Aventura Interativa");
-		lblLogo.setStyle("-fx-font-family: sample; -fx-font-size: 50;");
+		lblLogo.setStyle("-fx-font-family: 'DejaVu Sans Mono'; -fx-font-size: 50;");
 		paneB0.setAlignment(lblLogo, Pos.CENTER);
 		paneB0.setTop(lblLogo);
 		paneB0.setLeft(paneGEsq);
 		paneB0.setCenter(paneGDir);
 		paneB0.setMargin(paneGDir, new Insets(0, 0, 0, 15));
 
-		Scene telaLogin = new Scene(paneB0, 600, 400);
-
-		return telaLogin;
+		return new Scene(paneB0, 600, 400);
 
 	}
 
@@ -81,7 +79,7 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
 		if (event.getTarget() == btnLogin) {
 
-			if(controlTelaLogin.login(nomeParaConsulta (),senhaParaConsulta ())) {
+			if(controLogin.login(txtNome.getText(),txtSenha.getText ())) {
 				executor.executar ("save");
 			}else {
 				alert.setAlertType(Alert.AlertType.INFORMATION);
@@ -94,29 +92,35 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 
 		} else if (event.getTarget() == btnCadastro) {
 
-			if (ControlLogin.verificaIgualdade(txtCadSenha.getText(), txtCadSenhaConf.getText())) {
+			if (controLogin.verificaNome (txtCadSenha.getText())) {
 
-				controlTelaLogin.cadastrar(boundaryForEntityCad());
+				if (controLogin.verificaIgualdade (txtCadSenha.getText (), txtCadSenhaConf.getText ())) {
 
-				System.out.println("cadastrou");
+					controLogin.cadastrar (boundaryForEntityCad ());
 
-				alert.setAlertType(Alert.AlertType.INFORMATION);
-				alert.setHeaderText("Boa Sorte");
-				alert.setContentText("Cadastro Efetuado com Sucesso");
-				alert.show();
-				txtCadNome.clear();
-				txtCadSenha.clear();
-				txtCadSenhaConf.clear();
+					alert.setAlertType (Alert.AlertType.INFORMATION);
+					alert.setHeaderText ("Boa Sorte");
+					alert.setContentText ("Cadastro Efetuado com Sucesso");
+					alert.show ();
+					txtCadNome.clear ();
+					txtCadSenha.clear ();
+					txtCadSenhaConf.clear ();
+				} else {
 
-			} else {
+					alert.setAlertType (Alert.AlertType.WARNING);
+					alert.setHeaderText ("As Senhas digitadas não correspondem");
+					alert.setContentText ("Por favor digite senhas iguais!!!");
+					alert.showAndWait ();
+					txtCadSenha.clear ();
+					txtCadSenhaConf.clear ();
+				}
+			}else {
 
-				System.out.println("n?o cadastrou");
-				alert.setAlertType(Alert.AlertType.WARNING);
-				alert.setHeaderText("As Senhas digitadas não correspondem");
-				alert.setContentText("Por favor digite senhas iguais!!!");
-				alert.showAndWait();
-				txtCadSenha.clear();
-				txtCadSenhaConf.clear();
+				alert.setAlertType (Alert.AlertType.WARNING);
+				alert.setHeaderText ("Nome já existe !!!");
+				alert.setContentText ("Por favor escolha outro nome");
+				alert.showAndWait ();
+				txtCadNome.clear ();
 			}
 		}
 	}
@@ -130,18 +134,6 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 		System.out.println("boundaryForEntityCad nome - " + jogador.getNome());
 
 		return jogador;
-	}
-
-	public String nomeParaConsulta(){
-
-		String nome = txtNome.getText();
-		return nome;
-	}
-
-	public String senhaParaConsulta() {
-
-		String senha = txtSenha.getText ();
-		return senha;
 	}
 
 //	public void entityForBoundary(Jogador jogador) {
@@ -169,5 +161,4 @@ public class TelaLogin implements Telas, EventHandler<ActionEvent> {
 	public boundary.Executor getExecutor() {
 		return this.executor;
 	}
-
 }
